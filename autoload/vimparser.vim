@@ -39,7 +39,12 @@ function! vimparser#new_reader(lines)
 
   function reader.peek_char()
     if self.is_end() | return '' | endif " check end of stream.
-    return self.lines[self.nline][self.ncol]
+    return matchstr(self.lines[self.nline], '.', self.ncol)
+  endfunction
+
+  function reader.peek_line()
+    if self.is_end() | return '' | endif " check end of stream.
+    return matchstr(self.lines[self.nline], '.*$', self.ncol)
   endfunction
 
   function reader.char()
